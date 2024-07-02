@@ -30,6 +30,11 @@ jobs:
       
     - name: Build-DB
       run: docker-compose build
+
+    - name: Wait for DB to be ready
+      run: |
+        chmod +x wait-for-it.sh
+        ./wait-for-it.sh localhost:5432 --timeout=60 -- echo "Postgres is up"
       
     - name: Create-DB
       run: docker-compose up -d
